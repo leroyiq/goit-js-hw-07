@@ -28,19 +28,26 @@ function showOriginal(event) {
     return;
   }
   event.preventDefault();
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <div class="modal">
       <img src="${event.target.dataset.source}" width= 100%>
     </div>
-`);
-
+`,
+    {
+      onShow: (instance) => {
+        document.addEventListener("keydown", closeOriginal);
+      },
+      onClose: (instance) => {
+        document.removeEventListener("keydown", closeOriginal);
+      },
+    }
+  );
   instance.show();
-  window.addEventListener("keydown", closeOriginal);
 
   function closeOriginal(event) {
     if (event.code === "Escape") {
       instance.close();
-      window.removeEventListener("keydown", closeOriginal);
     }
   }
 }

@@ -37,12 +37,12 @@ function showOriginal(event) {
 `);
 
   instance.show();
-  window.addEventListener("keydown", closeOriginal);
+  document.addEventListener("keydown", closeOriginal);
 
   function closeOriginal(event) {
     if (event.code === "Escape") {
       instance.close();
-      window.removeEventListener("keydown", closeOriginal);
+      document.removeEventListener("keydown", closeOriginal);
     }
   }
 }
