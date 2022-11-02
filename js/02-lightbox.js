@@ -4,7 +4,6 @@ import { galleryItems } from "./gallery-items.js";
 const containerRef = document.querySelector(".gallery");
 const galleryRef = createGllery(galleryItems);
 containerRef.insertAdjacentHTML("beforeend", galleryRef);
-containerRef.addEventListener("click", showOriginal);
 
 let galleryNew = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
@@ -23,26 +22,4 @@ function createGllery(galleryItems) {
 </div>`;
     })
     .join("");
-}
-
-function showOriginal(event) {
-  if (event.target.nodeName !== "IMG") {
-    return;
-  }
-  event.preventDefault();
-  const instance = basicLightbox.create(`
-    <div class="modal">
-      <img src="${event.target.dataset.source}" width= 100%>
-    </div>
-`);
-
-  instance.show();
-  document.addEventListener("keydown", closeOriginal);
-
-  function closeOriginal(event) {
-    if (event.code === "Escape") {
-      instance.close();
-      document.removeEventListener("keydown", closeOriginal);
-    }
-  }
 }
